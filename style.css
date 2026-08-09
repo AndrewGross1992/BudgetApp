@@ -14,9 +14,6 @@ body {
 .header h1 {
   font-size: 1.5rem;
   margin: 0 0 16px 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
 .budget-left-banner {
@@ -44,22 +41,17 @@ body {
   padding: 16px;
   background-color: #fafbfc;
   border-bottom: 1px solid #e1e4e8;
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  position: relative;
 }
 
 .card-header h2 {
   font-size: 1rem;
   margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 6px;
 }
 
 .column-headers {
-  grid-column: 2;
   display: flex;
   gap: 30px;
   font-size: 0.8rem;
@@ -80,6 +72,12 @@ body {
   border-bottom: none;
 }
 
+.row-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .row-title {
   font-size: 0.9rem;
   color: #1f2937;
@@ -94,6 +92,7 @@ body {
   font-size: 0.75rem;
   color: #6b7280;
   margin-top: 2px;
+  margin-left: 24px;
 }
 
 .planned, .remaining {
@@ -111,11 +110,14 @@ body {
   align-items: center;
 }
 
-.add-link {
+.add-link-btn {
+  background: none;
+  border: none;
   color: #2563eb;
-  text-decoration: none;
   font-size: 0.9rem;
   font-weight: 500;
+  cursor: pointer;
+  padding: 0;
 }
 
 .totals {
