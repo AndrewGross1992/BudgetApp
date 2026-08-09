@@ -1,6 +1,6 @@
 // State Management
 let selectedYear = 2026;
-let selectedMonth = 7; // 0 = January, 7 = August, etc.
+let selectedMonth = 7; // August (0 = January, 7 = August)
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 // Load data from localStorage or default template for August 2026
@@ -24,7 +24,7 @@ function getCurrentMonthKey() {
 }
 
 function renderApp() {
-  // Update header label
+  // Update header label and year
   document.getElementById("current-month-label").innerText = `${monthNames[selectedMonth]} ${selectedYear}`;
   document.getElementById("picker-year").innerText = selectedYear;
 
@@ -32,9 +32,11 @@ function renderApp() {
   const currentItems = allBudgetData[monthKey] || [];
 
   const incomeList = document.getElementById("income-list");
+  const expenseList = document.getElementById("expense-list");
   const favoritesList = document.getElementById("favorites-list");
   
   incomeList.innerHTML = "";
+  expenseList.innerHTML = "";
   favoritesList.innerHTML = "";
 
   let totalIncomePlanned = 0;
@@ -42,50 +44,49 @@ function renderApp() {
   let totalExpensePlanned = 0;
 
   currentItems.forEach(item => {
+    // 1. Render Income
     if (item.type === "income") {
       totalIncomePlanned += item.planned;
       totalIncomeRemaining += item.remaining;
-
-      incomeList.innerHTML += `
-        <div class="row">
-          <div class="row-title-wrapper">
-            <input type="checkbox" ${item.favorite ? "checked" : ""} onChange="toggleFavorite(${item.id})">
-            <span class="row-title">${item.name}</span>
-          </div>
-          <span class="planned">$${item.planned.toFixed(2)}</span>
-          <span class="remaining">$${item.remaining.toFixed(2)}</span>
-        </div>
-      `;
-    }
-
-    if (item.favorite) {
-      favoritesList.innerHTML += `
-        <div class="row">
-          <div class="row-with-sub">
-            <div class="row-title-wrapper">
-              <input type="checkbox" checked onChange="toggleFavorite(${item.id})">
-              <span class="row-title">${item.name}</span>
-            </div>
-            ${item.sub ? `<span class="sub-text">${item.sub}</span>` : ""}
-          </div>
-          <span class="planned">$${item.planned.toFixed(2)}</span>
-          <span class="remaining">$${item.remaining.toFixed(2)}</span>
-        </div>
-      `;
-    }
-
-    if (item.type === "expense") {
+      incomeList.innerHTML += createRowHTML(item);
+    } 
+    // 2. Render Expenses
+    else if (item.type === "expense") {
       totalExpensePlanned += item.planned;
+      expenseList.innerHTML += createRowHTML(item);
+    }
+
+    // 3. Render Favorites (Any item where favorite is true)
+    if (item.favorite) {
+      favoritesList.innerHTML += createRowHTML(item);
     }
   });
 
+  // Update Totals
   document.getElementById("income-planned-total").innerText = `$${totalIncomePlanned.toFixed(2)}`;
   document.getElementById("income-remaining-total").innerText = `$${totalIncomeRemaining.toFixed(2)}`;
   
   let leftToBudget = totalIncomePlanned - totalExpensePlanned;
   document.getElementById("left-to-budget").innerText = `$${leftToBudget.toFixed(2)}`;
-
+  
   renderMonthGrid();
+}
+
+// Helper to construct row layouts cleanly
+function createRowHTML(item) {
+  return `
+    <div class="row">
+      <div class="${item.sub ? 'row-with-sub' : 'row-title-wrapper'}">
+        <div class="row-title-wrapper">
+          <input type="checkbox" ${item.favorite ? "checked" : ""} onChange="toggleFavorite(${item.id})">
+          <span class="row-title">${item.name}</span>
+        </div>
+        ${item.sub ? `<span class="sub-text">${item.sub}</span>` : ""}
+      </div>
+      <span class="planned">$${item.planned.toFixed(2)}</span>
+      <span class="remaining">$${item.remaining.toFixed(2)}</span>
+    </div>
+  `;
 }
 
 // Render Month Selector Grid inside popup
@@ -94,7 +95,6 @@ function renderMonthGrid() {
   grid.innerHTML = "";
 
   monthNames.forEach((m, index) => {
-    const isSelected = (index === selectedMonth && selectedYear === selectedYear); // simplified check
     grid.innerHTML += `
       <button class="month-btn ${index === selectedMonth ? 'active' : ''}" onclick="selectMonth(${index})">
         ${m.substring(0, 3)}
@@ -128,7 +128,7 @@ document.getElementById("next-year").addEventListener("click", (e) => {
   renderApp();
 });
 
-// Toggle Favorite Status
+// Toggle Favorite Status via Checkbox
 function toggleFavorite(id) {
   const monthKey = getCurrentMonthKey();
   const items = allBudgetData[monthKey] || [];
@@ -140,17 +140,16 @@ function toggleFavorite(id) {
   }
 }
 
-// Add New Income Item for Active Month
+// Add New Income Item
 document.getElementById("add-income-btn").addEventListener("click", () => {
-  const name = prompt("Enter income name:");
+  const name = prompt("Enter income name (e.g., Paycheck, Bonus):");
   if (!name) return;
   const planned = parseFloat(prompt("Enter planned amount:", "0.00")) || 0;
   const remaining = parseFloat(prompt("Enter remaining amount:", "0.00")) || 0;
+  const isFavorite = confirm("Mark as favorite?");
 
   const monthKey = getCurrentMonthKey();
-  if (!allBudgetData[monthKey]) {
-    allBudgetData[monthKey] = [];
-  }
+  if (!allBudgetData[monthKey]) allBudgetData[monthKey] = [];
 
   allBudgetData[monthKey].push({
     id: Date.now(),
@@ -158,7 +157,31 @@ document.getElementById("add-income-btn").addEventListener("click", () => {
     type: "income",
     planned: planned,
     remaining: remaining,
-    favorite: false
+    favorite: isFavorite
+  });
+
+  saveData();
+  renderApp();
+});
+
+// Add New Expense Item
+document.getElementById("add-expense-btn").addEventListener("click", () => {
+  const name = prompt("Enter expense name (e.g., Water, Rent):");
+  if (!name) return;
+  const planned = parseFloat(prompt("Enter planned amount:", "0.00")) || 0;
+  const remaining = parseFloat(prompt("Enter remaining amount:", "0.00")) || 0;
+  const isFavorite = confirm("Mark as favorite?");
+
+  const monthKey = getCurrentMonthKey();
+  if (!allBudgetData[monthKey]) allBudgetData[monthKey] = [];
+
+  allBudgetData[monthKey].push({
+    id: Date.now(),
+    name: name,
+    type: "expense",
+    planned: planned,
+    remaining: remaining,
+    favorite: isFavorite
   });
 
   saveData();
