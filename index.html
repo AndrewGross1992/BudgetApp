@@ -1,18 +1,103 @@
-<!-- Inside index.html, find the Favorites section card and update it like this -->
-<section class="card">
-  <div class="card-header">
-    <h2>Favorites / Expenses</h2>
-    <div class="column-headers">
-      <span>Planned</span>
-      <span>Remaining</span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget App</title>
+  
+  <!-- PWA Meta Tags for iOS -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="BudgetApp">
+  <link rel="apple-touch-icon" href="icon-192.png">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Header / Month Selector -->
+    <header class="header">
+      <div class="month-selector-container">
+        <div class="month-display" id="month-dropdown-toggle">
+          <h1 id="current-month-label">August 2026</h1>
+          <span class="chevron">⌄</span>
+        </div>
+        
+        <!-- Dropdown Card for Month/Year Selection -->
+        <div id="month-picker-popup" class="month-picker-popup hidden">
+          <div class="year-nav">
+            <button id="prev-year">‹</button>
+            <span id="picker-year">2026</span>
+            <button id="next-year">›</button>
+          </div>
+          <div class="months-grid" id="months-grid">
+            <!-- Months injected via JS -->
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Left to Budget Banner -->
+    <div class="budget-left-banner">
+      <span><strong id="left-to-budget">$0.00</strong> left to budget</span>
     </div>
+
+    <!-- Income Section Card -->
+    <section class="card">
+      <div class="card-header">
+        <h2>Income</h2>
+        <div class="column-headers">
+          <span>Planned</span>
+          <span>Remaining</span>
+        </div>
+      </div>
+
+      <div class="card-body" id="income-list"></div>
+
+      <div class="card-footer">
+        <button id="add-income-btn" class="add-link-btn">+ Add Income</button>
+        <div class="totals">
+          <span class="planned"><strong id="income-planned-total">$0.00</strong></span>
+          <span class="remaining"><strong id="income-remaining-total">$0.00</strong></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Expenses / Favorites Section Card -->
+    <section class="card">
+      <div class="card-header">
+        <h2>Expenses</h2>
+        <div class="column-headers">
+          <span>Planned</span>
+          <span>Remaining</span>
+        </div>
+      </div>
+
+      <div class="card-body" id="expense-list"></div>
+
+      <div class="card-footer">
+        <button id="add-expense-btn" class="add-link-btn">+ Add Expense</button>
+      </div>
+    </section>
+
+    <!-- Favorites Section Card -->
+    <section class="card">
+      <div class="card-header">
+        <h2>Favorites</h2>
+        <div class="column-headers">
+          <span>Planned</span>
+          <span>Remaining</span>
+        </div>
+      </div>
+
+      <div class="card-body" id="favorites-list"></div>
+    </section>
   </div>
 
-  <div class="card-body" id="expense-list">
-    <!-- Expenses injected here -->
-  </div>
-
-  <div class="card-footer">
-    <button id="add-expense-btn" class="add-link-btn">+ Add Expense</button>
-  </div>
-</section>
+  <!-- JavaScript File -->
+  <script src="script.js"></script>
+</body>
+</html>
