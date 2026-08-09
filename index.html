@@ -20,9 +20,23 @@
   <div class="app-container">
     <!-- Header / Month Selector -->
     <header class="header">
-      <div class="month-selector">
-        <h1>August 2026</h1>
-        <span class="chevron">⌄</span>
+      <div class="month-selector-container">
+        <div class="month-display" id="month-dropdown-toggle">
+          <h1 id="current-month-label">August 2026</h1>
+          <span class="chevron">⌄</span>
+        </div>
+        
+        <!-- Dropdown Card for Month/Year Selection -->
+        <div id="month-picker-popup" class="month-picker-popup hidden">
+          <div class="year-nav">
+            <button id="prev-year">‹</button>
+            <span id="picker-year">2026</span>
+            <button id="next-year">›</button>
+          </div>
+          <div class="months-grid" id="months-grid">
+            <!-- Months injected via JS -->
+          </div>
+        </div>
       </div>
     </header>
 
@@ -41,9 +55,7 @@
         </div>
       </div>
 
-      <div class="card-body" id="income-list">
-        <!-- Rows will be injected here via JavaScript -->
-      </div>
+      <div class="card-body" id="income-list"></div>
 
       <div class="card-footer">
         <button id="add-income-btn" class="add-link-btn">+ Add Income</button>
@@ -64,9 +76,7 @@
         </div>
       </div>
 
-      <div class="card-body" id="favorites-list">
-        <!-- Favorite items will dynamically appear here -->
-      </div>
+      <div class="card-body" id="favorites-list"></div>
     </section>
   </div>
 
