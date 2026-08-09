@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget App</title>
+  
+  <!-- PWA Meta Tags for iOS -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="BudgetApp">
+  <link rel="apple-touch-icon" href="icon-192.png">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Header / Month Selector -->
+    <header class="header">
+      <div class="month-selector">
+        <h1>August 2026</h1>
+        <span class="chevron">⌄</span>
+      </div>
+    </header>
+
+    <!-- Left to Budget Banner -->
+    <div class="budget-left-banner">
+      <span><strong>$134.84</strong> left to budget</span>
+    </div>
+
+    <!-- Income Section Card -->
+    <section class="card">
+      <div class="card-header">
+        <h2>Income</h2>
+        <span class="chevron">⌄</span>
+        <div class="column-headers">
+          <span>Planned</span>
+          <span>Remaining</span>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <span class="row-title">Paycheck 1</span>
+          <span class="planned">$650.90</span>
+          <span class="remaining">$0.00</span>
+        </div>
+        <div class="row">
+          <span class="row-title">Paycheck 2</span>
+          <span class="planned">$627.54</span>
+          <span class="remaining">$627.54</span>
+        </div>
+        <div class="row">
+          <span class="row-title">Paycheck 3</span>
+          <span class="planned">$638.84</span>
+          <span class="remaining">$638.84</span>
+        </div>
+        <div class="row">
+          <span class="row-title">Paycheck 4</span>
+          <span class="planned">$633.87</span>
+          <span class="remaining">$633.87</span>
+        </div>
+        <div class="row">
+          <span class="row-title">Interest</span>
+          <span class="planned">$34.44</span>
+          <span class="remaining">$34.44</span>
+        </div>
+        <div class="row">
+          <span class="row-title">DakotalandCheck</span>
+          <span class="planned">$0.00</span>
+          <span class="remaining">$0.00</span>
+        </div>
+        <div class="row">
+          <span class="row-title">Fruit Reimbursement</span>
+          <span class="planned">$13.00</span>
+          <span class="remaining">$13.00</span>
+        </div>
+
+        <div class="card-footer">
+          <a href="#" class="add-link">Add Income</a>
+          <div class="totals">
+            <span class="planned"><strong>$2,598.59</strong></span>
+            <span class="remaining"><strong>$1,947.69</strong></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Favorites Section Card -->
+    <section class="card">
+      <div class="card-header">
+        <h2>Favorites</h2>
+        <span class="chevron">⌄</span>
+        <div class="column-headers">
+          <span>Planned</span>
+          <span>Remaining</span>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <span class="row-title">⛪ Tithe</span>
+          <span class="planned">$249.00</span>
+          <span class="remaining">$306.82</span>
+        </div>
+        <div class="row">
+          <span class="row-title">🏦 Emergency Fund</span>
+          <span class="planned">$0.00</span>
+          <span class="remaining">$8,000.00</span>
+        </div>
+        <div class="row">
+          <span class="row-title">✈️ Vacation Fund</span>
+          <span class="planned">$0.00</span>
+          <span class="remaining">$0.00</span>
+        </div>
+        <div class="row">
+          <div class="row-with-sub">
+            <span class="row-title">Mortgage/Rent</span>
+            <span class="sub-text">Due: Aug 12th</span>
+          </div>
+          <span class="planned">$550.00</span>
+          <span class="remaining">$550.00</span>
+        </div>
+        <div class="row">
+          <div class="row-with-sub">
+            <span class="row-title">Water</span>
+            <span class="sub-text">Due: Aug 26th</span>
+          </div>
+          <span class="planned">$0.00</span>
+          <span class="remaining">$0.00</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</body>
+</html>
